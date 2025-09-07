@@ -1,10 +1,16 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { createMemoryHistory, createRouter } from 'vue-router'
 
-import { Button } from 'vant';
+import routes from "./config/route.ts";
+
+const router = createRouter({
+    history: createMemoryHistory(),
+    routes,
+})
 
 const app = createApp(App)
 
-// 3. 注册你需要的组件
-app.use(Button);
+app.use(router)
+
 app.mount('#app')

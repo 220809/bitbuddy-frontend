@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <router-view />
+  主页
 </template>
 
 <style scoped>

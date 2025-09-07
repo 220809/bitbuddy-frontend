@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <router-view />
+  圈子
 </template>
 
 <style scoped>
