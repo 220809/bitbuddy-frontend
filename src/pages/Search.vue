@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
 const value = ref('');
 const router = useRouter();
 
-const initTagNameList = [
+const initTagNameList: Tag[] = [
   {
     id: 1,
     name: 'Java',
@@ -28,23 +28,33 @@ const initTagNameList = [
   }
 ]
 
-const tagNameList = ref(initTagNameList)
+const tagNameList = ref<Tag[]>(initTagNameList)
 
 const onSearch = (value: string) => {
   tagNameList.value = initTagNameList.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
 }
 
-const selectedTags = ref([]);
+const selectedTags = ref<Tag[]>([]);
 
-const tagClicked = (item) => {
+const tagClicked = (item: Tag) => {
   if (!selectedTags.value.includes(item)) {
     selectedTags.value.push(item);
   }
 };
 
-const tagClosed = (item) => {
+const tagClosed = (item: Tag) => {
   selectedTags.value = selectedTags.value.filter(tag => tag.id !== item.id);
 };
+
+const doUserSearch = () => {
+  const selectedTagNameList = selectedTags.value.map(tag => tag.name);
+  router.push({
+    path: '/user/list',
+    query: {
+      tags: selectedTagNameList,
+    }
+  })
+}
 </script>
 
 <template>
@@ -89,6 +99,9 @@ const tagClosed = (item) => {
       {{ item.name }}
     </van-tag>
   </van-space>
+  <div style="padding: 5px 16px">
+    <van-button type="success" block @click="doUserSearch" size="large"> 搜索用户 </van-button>
+  </div>
 
 </template>
 

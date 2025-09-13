@@ -1,11 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { createMemoryHistory, createRouter } from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
+import "vant/lib/index.css"
 
 import routes from "./config/route.ts";
 
 const router = createRouter({
-    history: createMemoryHistory(),
+    history: createWebHashHistory(),
     routes,
 })
 
