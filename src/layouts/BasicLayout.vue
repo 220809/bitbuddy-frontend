@@ -1,12 +1,27 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import {useRouter} from "vue-router";
+import {showFailToast} from "vant";
+import {getCurrentUser} from "../services/user.ts";
 
 const active = ref("home");
 const onChange = (name: string) => { active.value = name;};
 
+const user = ref<User>();
+
 const router = useRouter();
 const onSearchClick = () => router.push('/search');
+
+onMounted(async () => {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser) {
+    user.value = currentUser;
+  } else {
+    showFailToast("请先登录");
+    await router.replace('/user/login');
+  }
+})
 </script>
 
 <template>
@@ -17,7 +32,7 @@ const onSearchClick = () => router.push('/search');
           fit="cover"
           width="2rem"
           height="2rem"
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+          :src="user?.avatarUrl"
       />
     </template>
     <template #right>
@@ -36,5 +51,7 @@ const onSearchClick = () => router.push('/search');
 </template>
 
 <style scoped>
-
+  #content {
+    margin-bottom: 50px;
+  }
 </style>
