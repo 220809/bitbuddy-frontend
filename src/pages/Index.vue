@@ -2,11 +2,20 @@
 import {onMounted, ref} from "vue";
 import appAxios from "../plugins/appAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
-import UserCardList from "../components/userCardList.vue";
+import UserCardList from "../components/UserCardList.vue";
+import {getCurrentUser} from "../services/user.ts";
+import {useRouter} from "vue-router";
 
 const userList = ref<User[]>([]);
+const router = useRouter();
 
 onMounted(async () => {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    await router.replace("/user/login");
+    return;
+  }
+
   const userResultList = await appAxios.get('/user/recommend')
       .then(res => {
         showSuccessToast('请求成功')

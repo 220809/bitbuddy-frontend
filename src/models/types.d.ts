@@ -16,3 +16,15 @@ type Tag = {
     id: number;
     name: string;
 }
+
+type Group = {
+    id: number;
+    name: string;
+    description: string;
+    maxCapacity: number;
+    leader: User;
+    accessLevel: number;
+    createTime: Date;
+    updateTime: Date;
+    participants: User[];
+}

@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import appAxios from "../plugins/appAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
 import {useRouter} from "vue-router";
+import {refreshUserState} from "../services/user.ts";
 
 const router = useRouter();
 const userAccount = ref('');
@@ -15,6 +16,7 @@ const onSubmit = async () => {
 
   if (res.code == 200) {
     showSuccessToast('登录成功');
+    await refreshUserState();
     await router.replace('/');
   } else {
     showFailToast('登录失败');

@@ -19,9 +19,6 @@
         <van-tag plain type="primary" v-for="tag in user.tags">{{ tag }}</van-tag>
       </van-space>
     </template>
-<!--    <template #footer>-->
-<!--      <van-button size="mini">联系方式</van-button>-->
-<!--    </template>-->
   </van-card>
   <van-empty v-if="userList.length < 1" description="暂无数据" />
 </template>

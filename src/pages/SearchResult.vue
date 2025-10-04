@@ -3,7 +3,7 @@ import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import appAxios from "../plugins/appAxios.ts";
 import {showFailToast, showToast} from "vant";
-import UserCardList from "../components/userCardList.vue";
+import UserCardList from "../components/UserCardList.vue";
 
 const route = useRoute();
 const router = useRouter();
